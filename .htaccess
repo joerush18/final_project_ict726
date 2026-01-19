@@ -1,0 +1,37 @@
+# Apache Configuration for Car Service Portal
+# Place this file in the public directory if using Apache
+
+# Enable Rewrite Engine
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /public/
+    
+    # Redirect to index.php if file doesn't exist
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php [QSA,L]
+</IfModule>
+
+# Security Headers
+<IfModule mod_headers.c>
+    # Prevent clickjacking
+    Header set X-Frame-Options "SAMEORIGIN"
+    
+    # XSS Protection
+    Header set X-XSS-Protection "1; mode=block"
+    
+    # Prevent MIME type sniffing
+    Header set X-Content-Type-Options "nosniff"
+</IfModule>
+
+# PHP Settings (if allowed)
+<IfModule mod_php.c>
+    php_value session.cookie_httponly 1
+    php_value session.cookie_secure 0  # Set to 1 if using HTTPS
+</IfModule>
+
+# Deny access to sensitive files
+<FilesMatch "^(config|includes|database)">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
