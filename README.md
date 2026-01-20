@@ -1,6 +1,6 @@
 # Car Service & Garage Booking Portal
 
-A complete web application for booking car services at garages, built with HTML5, CSS3, JavaScript, PHP, and MySQL. This project satisfies the requirements for ICT726 Assignment 4.
+A complete web application for booking car services at garages, built with HTML5, CSS3, JavaScript, PHP, and MySQL.
 
 ## 🚀 Features
 
@@ -224,7 +224,6 @@ The database includes sample accounts for testing:
 - [ ] Responsive design works on mobile
 - [ ] All links and navigation work
 
-## 📚 Assignment Requirements Coverage
 
 ### ✅ User Authentication
 - Registration, login, logout
@@ -273,29 +272,6 @@ The database includes sample accounts for testing:
 - Session security
 - Privacy policy page
 
-## 🤝 Team Work Division Suggestions
-
-This project can be divided among team members:
-
-1. **Auth & Users** (Member 1)
-   - Registration, login, logout
-   - User management
-   - Session handling
-
-2. **Bookings & Vehicles** (Member 2)
-   - Booking system
-   - Vehicle management
-   - Booking status updates
-
-3. **Garage Owner Panel & Services** (Member 3)
-   - Service CRUD
-   - Garage owner dashboard
-   - Booking management for garage owners
-
-4. **CSS, SEO & Accessibility** (Member 4)
-   - Styling and responsive design
-   - SEO optimization
-   - Accessibility features
 
 ## 🐛 Troubleshooting
 
@@ -321,7 +297,7 @@ This project can be divided among team members:
 
 ## 📄 License
 
-This project is created for educational purposes (ICT726 Assignment 4).
+This project is created for educational purposes as requirement for final Assessment (ICT726 Assignment 4).
 
 ## 👨‍💻 Development Notes
 
@@ -331,12 +307,5 @@ This project is created for educational purposes (ICT726 Assignment 4).
 - Paths use absolute paths starting with `/public/` - adjust if needed for your setup
 
 ## 📞 Support
-
-For issues or questions:
-- Check the troubleshooting section
-- Review the code comments
-- Consult PHP and MySQL documentation
-
----
 
 **Built with ❤️ for ICT726 Assignment 4**
