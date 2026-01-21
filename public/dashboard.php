@@ -91,24 +91,27 @@ if ($userRole === 'customer') {
 include __DIR__ . '/../includes/header.php';
 ?>
 
-<main class="main-content py-12">
-    <div class="container max-w-6xl mx-auto px-4">
-        <div class="dashboard-header text-center">
-            <h1 class="page-title text-3xl font-semibold text-slate-900">Dashboard</h1>
-            <p class="page-subtitle text-sm text-slate-500">Welcome back, <?php echo htmlspecialchars($_SESSION['user_name']); ?>!</p>
+<main class="main-content">
+    <div class="container">
+        <div class="dashboard-header">
+            <div>
+                <h1 class="page-title">Dashboard</h1>
+                <p class="page-subtitle">Welcome back, <?php echo htmlspecialchars($_SESSION['user_name']); ?>!</p>
+            </div>
+            <span class="role-pill"><?php echo ucfirst(str_replace('_', ' ', $userRole)); ?></span>
         </div>
 
         <?php if ($userRole === 'customer'): ?>
             <!-- Customer Dashboard -->
-            <div class="dashboard-stats grid gap-4 md:grid-cols-2">
-                <div class="stat-card rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <div class="dashboard-stats">
+                <div class="stat-card">
                     <div class="stat-icon"><i class="fas fa-calendar"></i></div>
                     <div class="stat-content">
                         <h3><?php echo count($bookings); ?></h3>
                         <p>Total Bookings</p>
                     </div>
                 </div>
-                <div class="stat-card rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                <div class="stat-card">
                     <div class="stat-icon"><i class="fas fa-car"></i></div>
                     <div class="stat-content">
                         <h3><?php echo $vehicleCount; ?></h3>
@@ -117,10 +120,10 @@ include __DIR__ . '/../includes/header.php';
                 </div>
             </div>
 
-            <div class="dashboard-section rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-                <div class="section-header flex items-center justify-between">
-                    <h2 class="text-xl font-semibold text-slate-900">Recent Bookings</h2>
-                    <a href="/bookings.php" class="btn btn-secondary rounded-xl bg-slate-900 px-4 py-2 text-white hover:bg-slate-800">View All</a>
+            <div class="dashboard-section">
+                <div class="section-header">
+                    <h2>Recent Bookings</h2>
+                    <a href="/bookings.php" class="btn btn-secondary">View All</a>
                 </div>
                 
                 <?php if (empty($bookings)): ?>
@@ -129,24 +132,24 @@ include __DIR__ . '/../includes/header.php';
                         <p>No bookings yet. <a href="/garages.php">Browse garages</a> to make your first booking!</p>
                     </div>
                 <?php else: ?>
-                    <div class="bookings-list mt-4 grid gap-4 md:grid-cols-2">
+                    <div class="bookings-list">
                         <?php foreach ($bookings as $booking): ?>
-                            <div class="booking-card rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-                                <div class="booking-header flex items-center justify-between border-b border-slate-100 pb-3">
-                                    <h3 class="text-lg font-semibold text-slate-900"><?php echo htmlspecialchars($booking['service_name']); ?></h3>
+                            <div class="booking-card">
+                                <div class="booking-header">
+                                    <h3><?php echo htmlspecialchars($booking['service_name']); ?></h3>
                                     <span class="status-badge status-<?php echo $booking['status']; ?>">
                                         <?php echo ucfirst($booking['status']); ?>
                                     </span>
                                 </div>
-                                <div class="booking-body mt-3 text-sm text-slate-600">
+                                <div class="booking-body">
                                     <p><strong>Garage:</strong> <?php echo htmlspecialchars($booking['garage_name']); ?></p>
                                     <p><strong>Vehicle:</strong> <?php echo htmlspecialchars($booking['make'] . ' ' . $booking['model'] . ' (' . $booking['license_plate'] . ')'); ?></p>
                                     <p><strong>Date:</strong> <?php echo date('F j, Y', strtotime($booking['booking_date'])); ?></p>
                                     <p><strong>Time:</strong> <?php echo date('g:i A', strtotime($booking['booking_time'])); ?></p>
                                     <p><strong>Price:</strong> $<?php echo number_format($booking['price'], 2); ?></p>
                                 </div>
-                                <div class="booking-footer mt-4 flex justify-end">
-                                    <a href="/booking_detail.php?id=<?php echo $booking['id']; ?>" class="btn btn-sm btn-primary rounded-xl bg-blue-600 px-3 py-2 text-white hover:bg-blue-700">View Details</a>
+                                <div class="booking-footer">
+                                    <a href="/booking_detail.php?id=<?php echo $booking['id']; ?>" class="btn btn-sm btn-primary">View Details</a>
                                 </div>
                             </div>
                         <?php endforeach; ?>
@@ -154,9 +157,9 @@ include __DIR__ . '/../includes/header.php';
                 <?php endif; ?>
             </div>
 
-            <div class="dashboard-actions mt-6 flex flex-wrap justify-center gap-3">
-                <a href="/garages.php" class="btn btn-primary rounded-xl bg-blue-600 px-5 py-2.5 text-white hover:bg-blue-700">Book a Service</a>
-                <a href="/vehicles.php" class="btn btn-secondary rounded-xl bg-slate-900 px-5 py-2.5 text-white hover:bg-slate-800">Manage Vehicles</a>
+            <div class="dashboard-actions">
+                <a href="/garages.php" class="btn btn-primary">Book a Service</a>
+                <a href="/vehicles.php" class="btn btn-secondary">Manage Vehicles</a>
             </div>
 
         <?php elseif ($userRole === 'garage_owner'): ?>
@@ -167,15 +170,15 @@ include __DIR__ . '/../includes/header.php';
                     You don't have a garage registered yet. Please contact admin to set up your garage.
                 </div>
             <?php else: ?>
-                <div class="dashboard-stats grid gap-4 md:grid-cols-2">
-                    <div class="stat-card rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                <div class="dashboard-stats">
+                    <div class="stat-card">
                         <div class="stat-icon"><i class="fas fa-calendar"></i></div>
                         <div class="stat-content">
                             <h3><?php echo count($bookings); ?></h3>
                             <p>Recent Bookings</p>
                         </div>
                     </div>
-                    <div class="stat-card rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                    <div class="stat-card">
                         <div class="stat-icon"><i class="fas fa-wrench"></i></div>
                         <div class="stat-content">
                             <h3><?php echo $serviceCount; ?></h3>
@@ -184,10 +187,10 @@ include __DIR__ . '/../includes/header.php';
                     </div>
                 </div>
 
-                <div class="dashboard-section rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-                    <div class="section-header flex items-center justify-between">
-                        <h2 class="text-xl font-semibold text-slate-900">Recent Bookings</h2>
-                        <a href="/garage_owner/bookings.php" class="btn btn-secondary rounded-xl bg-slate-900 px-4 py-2 text-white hover:bg-slate-800">Manage All</a>
+                <div class="dashboard-section">
+                    <div class="section-header">
+                        <h2>Recent Bookings</h2>
+                        <a href="/garage_owner/bookings.php" class="btn btn-secondary">Manage All</a>
                     </div>
                     
                     <?php if (empty($bookings)): ?>
@@ -196,24 +199,24 @@ include __DIR__ . '/../includes/header.php';
                             <p>No bookings yet.</p>
                         </div>
                     <?php else: ?>
-                        <div class="bookings-list mt-4 grid gap-4 md:grid-cols-2">
+                        <div class="bookings-list">
                             <?php foreach ($bookings as $booking): ?>
-                                <div class="booking-card rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-                                    <div class="booking-header flex items-center justify-between border-b border-slate-100 pb-3">
-                                        <h3 class="text-lg font-semibold text-slate-900"><?php echo htmlspecialchars($booking['service_name']); ?></h3>
+                                <div class="booking-card">
+                                    <div class="booking-header">
+                                        <h3><?php echo htmlspecialchars($booking['service_name']); ?></h3>
                                         <span class="status-badge status-<?php echo $booking['status']; ?>">
                                             <?php echo ucfirst($booking['status']); ?>
                                         </span>
                                     </div>
-                                    <div class="booking-body mt-3 text-sm text-slate-600">
+                                    <div class="booking-body">
                                         <p><strong>Customer:</strong> <?php echo htmlspecialchars($booking['customer_name']); ?></p>
                                         <p><strong>Vehicle:</strong> <?php echo htmlspecialchars($booking['make'] . ' ' . $booking['model'] . ' (' . $booking['license_plate'] . ')'); ?></p>
                                         <p><strong>Date:</strong> <?php echo date('F j, Y', strtotime($booking['booking_date'])); ?></p>
                                         <p><strong>Time:</strong> <?php echo date('g:i A', strtotime($booking['booking_time'])); ?></p>
                                         <p><strong>Price:</strong> $<?php echo number_format($booking['price'], 2); ?></p>
                                     </div>
-                                    <div class="booking-footer mt-4 flex justify-end">
-                                        <a href="/garage_owner/booking_detail.php?id=<?php echo $booking['id']; ?>" class="btn btn-sm btn-primary rounded-xl bg-blue-600 px-3 py-2 text-white hover:bg-blue-700">Manage</a>
+                                    <div class="booking-footer">
+                                        <a href="/garage_owner/booking_detail.php?id=<?php echo $booking['id']; ?>" class="btn btn-sm btn-primary">Manage</a>
                                     </div>
                                 </div>
                             <?php endforeach; ?>
@@ -221,29 +224,29 @@ include __DIR__ . '/../includes/header.php';
                     <?php endif; ?>
                 </div>
 
-                <div class="dashboard-actions mt-6 flex justify-center">
-                    <a href="/garage_owner/services.php" class="btn btn-primary rounded-xl bg-blue-600 px-5 py-2.5 text-white hover:bg-blue-700">Manage Services</a>
+                <div class="dashboard-actions">
+                    <a href="/garage_owner/services.php" class="btn btn-primary">Manage Services</a>
                 </div>
             <?php endif; ?>
 
         <?php else: ?>
             <!-- Admin Dashboard -->
-            <div class="dashboard-stats grid gap-4 md:grid-cols-3">
-                <div class="stat-card rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <div class="dashboard-stats">
+                <div class="stat-card">
                     <div class="stat-icon"><i class="fas fa-users"></i></div>
                     <div class="stat-content">
                         <h3><?php echo $customerCount; ?></h3>
                         <p>Total Customers</p>
                     </div>
                 </div>
-                <div class="stat-card rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                <div class="stat-card">
                     <div class="stat-icon"><i class="fas fa-building"></i></div>
                     <div class="stat-content">
                         <h3><?php echo $garageCount; ?></h3>
                         <p>Active Garages</p>
                     </div>
                 </div>
-                <div class="stat-card rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                <div class="stat-card">
                     <div class="stat-icon"><i class="fas fa-clock"></i></div>
                     <div class="stat-content">
                         <h3><?php echo $pendingBookings; ?></h3>
@@ -252,10 +255,10 @@ include __DIR__ . '/../includes/header.php';
                 </div>
             </div>
 
-            <div class="dashboard-section rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-                <div class="section-header flex items-center justify-between">
-                    <h2 class="text-xl font-semibold text-slate-900">Recent Bookings</h2>
-                    <a href="/admin/bookings.php" class="btn btn-secondary rounded-xl bg-slate-900 px-4 py-2 text-white hover:bg-slate-800">View All</a>
+            <div class="dashboard-section">
+                <div class="section-header">
+                    <h2>Recent Bookings</h2>
+                    <a href="/admin/bookings.php" class="btn btn-secondary">View All</a>
                 </div>
                 
                 <?php if (empty($bookings)): ?>
@@ -264,16 +267,16 @@ include __DIR__ . '/../includes/header.php';
                         <p>No bookings in the system.</p>
                     </div>
                 <?php else: ?>
-                    <div class="bookings-list mt-4 grid gap-4 md:grid-cols-2">
+                    <div class="bookings-list">
                         <?php foreach ($bookings as $booking): ?>
-                            <div class="booking-card rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-                                <div class="booking-header flex items-center justify-between border-b border-slate-100 pb-3">
-                                    <h3 class="text-lg font-semibold text-slate-900"><?php echo htmlspecialchars($booking['service_name']); ?></h3>
+                            <div class="booking-card">
+                                <div class="booking-header">
+                                    <h3><?php echo htmlspecialchars($booking['service_name']); ?></h3>
                                     <span class="status-badge status-<?php echo $booking['status']; ?>">
                                         <?php echo ucfirst($booking['status']); ?>
                                     </span>
                                 </div>
-                                <div class="booking-body mt-3 text-sm text-slate-600">
+                                <div class="booking-body">
                                     <p><strong>Customer:</strong> <?php echo htmlspecialchars($booking['customer_name']); ?></p>
                                     <p><strong>Garage:</strong> <?php echo htmlspecialchars($booking['garage_name']); ?></p>
                                     <p><strong>Vehicle:</strong> <?php echo htmlspecialchars($booking['make'] . ' ' . $booking['model'] . ' (' . $booking['license_plate'] . ')'); ?></p>
@@ -286,9 +289,9 @@ include __DIR__ . '/../includes/header.php';
                 <?php endif; ?>
             </div>
 
-            <div class="dashboard-actions mt-6 flex flex-wrap justify-center gap-3">
-                <a href="/admin/users.php" class="btn btn-primary rounded-xl bg-blue-600 px-5 py-2.5 text-white hover:bg-blue-700">Manage Users</a>
-                <a href="/admin/garages.php" class="btn btn-secondary rounded-xl bg-slate-900 px-5 py-2.5 text-white hover:bg-slate-800">Manage Garages</a>
+            <div class="dashboard-actions">
+                <a href="/admin/users.php" class="btn btn-primary">Manage Users</a>
+                <a href="/admin/garages.php" class="btn btn-secondary">Manage Garages</a>
             </div>
         <?php endif; ?>
     </div>
