@@ -27,8 +27,8 @@ jobs:
           rsync -az --delete \
             --exclude ".git/" \
             --exclude ".github/" \
-            ./ ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/var/www/html/
+            ./ ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/home/${{ secrets.EC2_USER }}/app/
 
       - name: Restart Apache
         run: |
-          ssh ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} "sudo systemctl restart apache2"
+          ssh ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} "sudo rsync -az --delete /home/${{ secrets.EC2_USER }}/app/ /var/www/html/ && sudo systemctl restart apache2"
